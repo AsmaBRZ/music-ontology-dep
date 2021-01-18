@@ -24,8 +24,8 @@ def execRequest():
     else:
       return render_template('index.html')
 
-    #return jsonify(results=prediction)
-    return 0
+    return jsonify(results='a')
+    
 
 
 if __name__ == '__main__':
