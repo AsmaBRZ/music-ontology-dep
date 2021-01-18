@@ -64,13 +64,13 @@ def displayResult():
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()['results']['bindings']
 
-    result = {}
+    d = {}
     for result in results :
         for key,value in result.items():
             attribut = equivalence[key]
             valeur = value['value']
             if(key == 'birthP'):
                 valeur = value['value'].split("/")[-1]
-            result[str(attribut)] = str(valeur)
+            d[str(attribut)] = str(valeur)
 
-    return result
+    return d
