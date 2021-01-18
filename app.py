@@ -10,7 +10,9 @@ def index():
 @app.route('/requestResult', methods=['POST'])
 def requestResult():
     if request.method == 'POST': 
-        data = request.files['image_data']
+        #data = request.files['image_data']
+        data = 1
+        print()
         if data == None:
             return 'no image received'
         else:
