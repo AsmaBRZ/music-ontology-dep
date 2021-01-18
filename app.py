@@ -12,7 +12,7 @@ def execRequest():
     if request.method == 'POST': 
         #data = request.files['image_data']
         print("**************************************************************")
-        print(request.files)
+        print(request)
         print("-------------------------------------------------------------")
         data = 1
         print()
