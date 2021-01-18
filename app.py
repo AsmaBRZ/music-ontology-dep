@@ -7,8 +7,8 @@ def index():
    return render_template('index.html')
 
 
-@app.route('/requestResult', methods=['POST'])
-def requestResult():
+@app.route('/photoRecognize', methods=['POST'])
+def photoRecognize():
     if request.method == 'POST': 
         #data = request.files['image_data']
         data = 1
