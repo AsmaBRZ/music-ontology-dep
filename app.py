@@ -21,7 +21,8 @@ def requestResult():
     else:
       return render_template('index.html')
 
-    return jsonify(results=prediction)
+    #return jsonify(results=prediction)
+    return 0
 
 
 if __name__ == '__main__':
