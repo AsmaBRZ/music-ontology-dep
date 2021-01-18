@@ -14,6 +14,13 @@ def execRequest():
         #data = request.files['image_data']
         print("**************************************************************")
         print(request.form.get('nom_artiste'))
+        print(request.form.get('date_naissance'))
+        print(request.form.get('lieu_naissance'))
+        print(request.form.get('auteur'))
+        print(request.form.get('musicien'))
+        print(request.form.get('compositeur'))
+        print(request.form.get('interprete'))
+
         print("-------------------------------------------------------------")
         data = 1
         print()
