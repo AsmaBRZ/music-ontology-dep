@@ -11,6 +11,7 @@ def index():
 def execRequest():
     if request.method == 'POST': 
         #data = request.files['image_data']
+        print(request.files[)
         data = 1
         print()
         if data == None:
