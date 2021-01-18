@@ -13,7 +13,7 @@ def execRequest():
     if request.method == 'POST': 
         #data = request.files['image_data']
         print("**************************************************************")
-        print(request.data)
+        print(request.form.get('nom_artiste'))
         print("-------------------------------------------------------------")
         data = 1
         print()
