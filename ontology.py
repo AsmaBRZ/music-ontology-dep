@@ -13,7 +13,7 @@ PREFIX dbpedia: <http://dbpedia.org/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"""
 
 equivalence =  {"birthP":"Place de naissance","birthD":"Date de naissance", "group":"URL","person":"URL", "name":"Nom", "dateC":"Date de création","origin":"Pays"}
-def artiste_query(name=None,birthD=None,birthP=None, musicien=None, auteur=None, compositeur=None, interprete=None):
+def artiste_query(name,birthD,birthP, musicien, auteur, compositeur, interprete):
     select = """SELECT DISTINCT ?person """
 
     where =  """ WHERE {
@@ -51,14 +51,8 @@ def displayResult(v_nom, v_date, v_place, musicien, auteur, compositeur, interpr
 
     sparql = SPARQLWrapper("http://dbpedia.org/sparql")
     
-    if(len(nom_artiste)==0):
-        nom_artiste = None
 
-
-    if(len(date_artiste)==0):
-        date_artiste = None
-
-    query=artiste_query(name=nom_artiste,birthD=date_artiste, musicien, auteur, compositeur, interprete)
+    query=artiste_query(nom_artiste,date_artiste, musicien, auteur, compositeur, interprete)
 
     sparql.setQuery(query)
     sparql.setReturnFormat(JSON)
