@@ -1,5 +1,6 @@
 from flask import Flask,request, render_template
 from flask import jsonify 
+from  ontology import *
 
 app = Flask(__name__,template_folder='templates')
 
@@ -20,19 +21,24 @@ def execRequest():
         print(request.form.get('musicien'))
         print(request.form.get('compositeur'))
         print(request.form.get('interprete'))
+        print("**************************************************************")
 
-        print("-------------------------------------------------------------")
-        data = 1
-        print()
-        if data == None:
-            return 'no image received'
+        nom_artiste = request.form.get('nom_artiste')
+        date_naissance = request.form.get('date_naissance')
+        lieu_naissance = request.form.get('lieu_naissance')
+        auteur = request.form.get('auteur')
+        musicien = request.form.get('musicien')
+        compositeur = request.form.get('compositeur')
+        interprete = request.form.get('interprete')
+
+        if nom_artiste  == None and auteur == None and interprete == None and musicien ==  None and compositeur == None and date_naissance == None and lieu_naissance  == None:
+            return 'No date received'
         else:
-            # model.predict.predict returns a dictionary
-            print()
+            result_dictionary = displayResult(nom_artiste date_naissance, lieu_naissance, musicien, auteur, compositeur, interprete)
     else:
       return render_template('index.html')
 
-    return jsonify(results='a')
+    return jsonify(results=result_dictionary)
     
 
 

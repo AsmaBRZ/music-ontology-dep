@@ -42,7 +42,7 @@ def artiste_query(name=None,birthD=None,birthP=None, musicien=None, auteur=None,
 
     return select + " " + where
     
-def displayResult(v_nom, v_date,musicien, auteur, compositeur, interprete):
+def displayResult(v_nom, v_date, v_place, musicien, auteur, compositeur, interprete):
     global texte1
     global texte0
     date_artiste = v_date
