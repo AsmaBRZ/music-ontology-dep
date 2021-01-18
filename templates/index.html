@@ -23,7 +23,7 @@
                 </header>
         <div class="row">
             <div class="offset-md-2 col-md-8">
-                <form enctype="multipart/form-data" action="{{ url_for('photoRecognize')}}" method="post" id="uploadForm">
+                <form enctype="multipart/form-data" action="{{ url_for('execRequest')}}" method="post" id="uploadForm">
 
                     <div class="form-group row">
                         <label for="nom_artiste" class="col-md-6">Nom de l'artiste</label>
@@ -127,7 +127,7 @@
             }
             reader.readAsDataURL(input.files[0]);
             var form = new FormData($("#uploadForm")[0]);
-            var url = "{{ url_for('photoRecognize')}}";
+            var url = "{{ url_for('execRequest')}}";
             $.ajax({
                 url: url,
                 method: "POST",
