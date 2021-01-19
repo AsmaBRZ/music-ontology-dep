@@ -40,7 +40,7 @@ def artiste_query(name,birthD,birthP):
         where = where  + '?person dbo:birthPlace ?birthP . '
    
 
-    where = where + " } LIMIT 10"
+    where = where + " } LIMIT 3"
 
     return select + " " + where
 
