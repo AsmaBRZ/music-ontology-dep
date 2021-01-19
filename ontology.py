@@ -47,35 +47,35 @@ def artiste_query(name,birthD,birthP):
 
 def ask_function_musicien(p):
     where = """ASK FROM """
-    where = where+ str(p) + """   { """
+    where = where+ '<'+str(p) +'>'+ """   { """
 
-    where = where  + '{?person a yago:Musician110339966} UNION {?person a yago:Musician110340312} UNION {?person a dbo:Musician} UNION {?person a dbo:Instrumentalist} '  
+    where = where  + '{'+str(p)+'  a yago:Musician110339966} UNION {'+str(p)+'  a yago:Musician110340312} UNION {'+str(p)+'  a dbo:Musician} UNION {'+str(p)+' a dbo:Instrumentalist} '  
     where = where + " }"
 
     return  where
 
 def ask_function_auteur(p):
     where = """ASK FROM """
-    where = where+ str(p) + """   { """
+    where = where+ '<'+str(p) +'>'+ """   { """
 
-    where = where  + '{?person a dbo:Songwriter} UNION  {?person a dbo:Writer} UNION {?person a dbo:Singer-Songwriter} UNION {?person a yago:Songwriter110624540} UNION {?person a yago:Writer110801291} UNION {?person a yago:Writer110794014} '
+    where = where  + '{'+str(p)+'  a dbo:Songwriter} UNION  {'+str(p)+'  a dbo:Writer} UNION {'+str(p)+'  a dbo:Singer-Songwriter} UNION {'+str(p)+' a yago:Songwriter110624540} UNION {'+str(p)+' a yago:Writer110801291} UNION {'+str(p)+'  a yago:Writer110794014} '
     where = where + " }"
 
     return  where 
     
 def ask_function_compositeur(p):
     where = """ASK FROM """
-    where = where+ str(p) + """   { """
+    where = where+ '<'+str(p) +'>'+ """   { """
 
-    where = where  + '{?person a yago:Composer109947232} UNION {?person a dbo:composer} . '
+    where = where  + '{'+str(p)+'  a yago:Composer109947232} UNION {'+str(p)+' a dbo:composer} . '
     where = where + " }"
     return  where
     
 def ask_function_interprete(p):
     where = """ASK FROM """
-    where = where+ str(p) + """   { """
-
-    where = where  + '{?person a dbo:Singer} UNION {?person a dbo:Singer-Songwriter} UNION  {?person a yago:Singer110599806} UNION {?person a yago:Performer110415638} '
+    where = where+ '<'+str(p) +'>'+ """   { """
+    
+    where = where  + '{'+str(p)+' a dbo:Singer} UNION {'+str(p)+' a dbo:Singer-Songwriter} UNION  {'+str(p)+' a yago:Singer110599806} UNION {'+str(p)+' a yago:Performer110415638} '
     where = where + " }"
 
     return  where
@@ -138,7 +138,7 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
             d[str(attribut)] = str(valeur)
             
             if key == 'name':
-                url = '<'+d['URL']+'>'
+                url = d['URL']
                 nom_artiste = valeur
                 ask_musicien = ask_function_musicien(url)
                 print("ask_musicien ",ask_musicien)
@@ -169,26 +169,26 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
                 is_interprete =bool( sparql.query().convert()['boolean'])
                 print("is_interprete ",is_interprete)
 
-                f='artiste, '
+                f='artiste'
                 if is_musicien == 'musicien':
-                    f=f+'musicien'
+                    f=f+', musicien'
 
                 
                 if is_auteur == 'auteur':
-                    if f=='artiste, ':
+                    if f=='artiste':
                         f=f+"auteur"
                     else:
                         f=f+", auteur"
             
                 if is_compositeur == 'compositeur':
-                    if f=='artiste, ':
+                    if f=='artiste':
                         f=f+"compositeur"
                     else:
                         f=f+", compositeur"
 
 
                 if is_interprete == 'interprete':
-                    if f=='artiste, ':
+                    if f=='artiste':
                         f=f+"interprète"
                     else:
                         f=f+", interprète"
