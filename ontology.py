@@ -212,8 +212,6 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
                         f=f+", interprète"
 
                 d["Fonction"] = f
-            
-            
         final_results.append(d)
 
     print("final_results ",final_results)
