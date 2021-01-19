@@ -34,22 +34,22 @@ def artiste_query(name,birthD,birthP, musicien, auteur, compositeur, interprete)
 
     if birthP != None :
         where = where  + '?person  dbo:nationality ?birthP .'
-        where = where  + 'FILTER (?birthPlace = <http://dbpedia.org/resource/'+str(birthP)+'>)'
+        where = where  + 'FILTER (?birthPlace = <http://dbpedia.org/resource/'+str(birthP)+'>) '
     else: 
         select = select + " ?birthP "
         where = where  + '?person dbo:birthPlace ?birthP . '
 
     if musicien:
-        where = where  + '{?person a yago:Musician110339966} UNION {?person a yago:Musician110340312}'
+        where = where  + '{?person a yago:Musician110339966} UNION {?person a yago:Musician110340312} '
 
     if auteur:
-        where = where  + '{?person a yago:Songwriter110624540} UNION {?person a yago:Writer110801291} UNION {?person a yago:Writer110794014}'
+        where = where  + '{?person a yago:Songwriter110624540} UNION {?person a yago:Writer110801291} UNION {?person a yago:Writer110794014} '
 
     if interprete:
-        where = where  + '{?person a yago:Singer110599806} UNION {?person a yago:Performer110415638}'
+        where = where  + '{?person a yago:Singer110599806} UNION {?person a yago:Performer110415638} '
 
     if compositeur:
-        where = where  + '{?person a yago:Composer109947232} '
+        where = where  + '?person a yago:Composer109947232 . '
     
 
     where = where + " } LIMIT 10"
