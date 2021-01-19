@@ -46,6 +46,7 @@ def artiste_query(name,birthD,birthP):
 
 
 def ask_function_musicien(p):
+    sparql = SPARQLWrapper("http://dbpedia.org/sparql")
     where1 = 'ASK  { ' + str(p)+ '  a yago:Musician110339966}'
     where2 =  'ASK  { ' +str(p)+'  a yago:Musician110340312}'
     where3 =  'ASK  { ' +str(p)+' a dbo:Musician}'
@@ -71,6 +72,7 @@ def ask_function_musicien(p):
     return  where1 or where2 or where3 or where4
 
 def ask_function_auteur(p):
+    sparql = SPARQLWrapper("http://dbpedia.org/sparql")
     where1 = 'ASK  { ' + str(p)+ '  a dbo:Songwriter}'
     where2 =  'ASK  { ' +str(p)+'  a dbo:Writer}'
     where3 =  'ASK  { ' +str(p)+' a dbo:Singer-Songwriter}'
@@ -101,6 +103,7 @@ def ask_function_auteur(p):
     return  where1 or where2 or where3 or where4 or where5
 
 def ask_function_compositeur(p):
+    sparql = SPARQLWrapper("http://dbpedia.org/sparql")
     where1 = 'ASK  { ' + str(p)+ '  a  yago:Composer109947232}'
     where2 =  'ASK  { ' +str(p)+'  a dbo:composer}'
 
@@ -117,6 +120,7 @@ def ask_function_compositeur(p):
 
     
 def ask_function_interprete(p):
+    sparql = SPARQLWrapper("http://dbpedia.org/sparql")
     where1 = 'ASK  { ' + str(p)+ '  a dbo:Singer}'
     where2 =  'ASK  { ' +str(p)+'  a dbo:Singer-Songwriter}'
     where3 =  'ASK  { ' +str(p)+' a yago:Singer110599806}'
