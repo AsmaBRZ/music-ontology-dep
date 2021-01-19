@@ -48,7 +48,7 @@ def artiste_query(name,birthD,birthP):
 def ask_function_musicien(name):
     where = """ASK { """
 
-    where =  """ 
+    where = where  +  """ 
         { ?person a dbo:MusicalArtist } UNION { ?person a umbel-rc:Artist } """
 
 
@@ -61,7 +61,7 @@ def ask_function_musicien(name):
 def ask_function_auteur(name):
     where = """ASK { """
 
-    where =  """ 
+    where = where  +  """ 
         { ?person a dbo:MusicalArtist } UNION { ?person a umbel-rc:Artist } """
 
     where = where  + '?person foaf:name "' + name + '"@en . '
@@ -73,7 +73,7 @@ def ask_function_auteur(name):
 def ask_function_compositeur(name):
     where = """ASK { """
 
-    where =  """ 
+    where = where  +  """ 
         { ?person a dbo:MusicalArtist } UNION { ?person a umbel-rc:Artist } """
 
     where = where  + '?person foaf:name "' + name + '"@en . '
@@ -85,7 +85,7 @@ def ask_function_compositeur(name):
 def ask_function_interprete(name):
     where = """ASK { """
 
-    where =  """ 
+    where = where  +  """ 
         { ?person a dbo:MusicalArtist } UNION { ?person a umbel-rc:Artist } """
 
     where = where  + '?person foaf:name "' + name + '"@en . '
