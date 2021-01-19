@@ -104,7 +104,7 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
 
     d = {}
     print("---------------------")
-    print(results)
+    
     
     for result in results :
         for key,value in result.items():
@@ -113,5 +113,5 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
             if(key == 'birthP'):
                 valeur = value['value'].split("/")[-1]
             d[str(attribut)] = str(valeur)
-
+    print(d)
     return d
