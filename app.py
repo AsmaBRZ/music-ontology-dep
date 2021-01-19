@@ -39,7 +39,7 @@ def execRequest():
     else:
       return render_template('index.html')
 
-    return jsonify(results=result_dictionary)
+    return jsonify(results="a")
     
 
 
