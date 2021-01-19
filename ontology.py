@@ -111,5 +111,32 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
             attribut = equivalence[key]
             valeur = value['value']
             d[str(attribut)] = str(valeur)
+
+    f=''
+    if v_musicien == 'musicien':
+        f=f+'musicien'
+
+    
+    if v_auteur == 'auteur':
+        if f=='':
+            f=f+"auteur"
+        else:
+            f=f+", auteur"
+  
+    if v_compositeur == 'compositeur':
+        if f=='':
+            f=f+"compositeur"
+        else:
+            f=f+", compositeur"
+
+
+    if v_interprete == 'interprete':
+        if f=='':
+            f=f+"interprète"
+        else:
+            f=f+", interprète"
+
+    d["Fonction"] = f
+
     print(d)
     return d
