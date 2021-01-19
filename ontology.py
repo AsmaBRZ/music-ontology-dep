@@ -234,24 +234,24 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
                 print("is_interprete ",is_interprete)
 
                 f='artiste'
-                if is_musicien == 'musicien':
+                if is_musicien:
                     f=f+', musicien'
 
                 
-                if is_auteur == 'auteur':
+                if is_auteur :
                     if f=='artiste':
                         f=f+"auteur"
                     else:
                         f=f+", auteur"
             
-                if is_compositeur == 'compositeur':
+                if is_compositeur :
                     if f=='artiste':
                         f=f+"compositeur"
                     else:
                         f=f+", compositeur"
 
 
-                if is_interprete == 'interprete':
+                if is_interprete :
                     if f=='artiste':
                         f=f+"interprète"
                     else:
