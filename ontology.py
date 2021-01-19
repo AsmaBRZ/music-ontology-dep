@@ -52,7 +52,7 @@ def displayResult(v_nom, v_date, v_place, musicien, auteur, compositeur, interpr
     sparql = SPARQLWrapper("http://dbpedia.org/sparql")
     
 
-    query=artiste_query(nom_artiste,date_artiste, lieu_artiste, musicien, auteur, compositeur, interprete)
+    query=artiste_query(nom_artiste,date_artiste,  v_place, musicien, auteur, compositeur, interprete)
 
     sparql.setQuery(query)
     sparql.setReturnFormat(JSON)
