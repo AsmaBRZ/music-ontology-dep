@@ -45,8 +45,9 @@ def artiste_query(name,birthD,birthP):
     return select + " " + where
 
 
-def ask_function_musicien(name):
-    where = """ASK { """
+def ask_function_musicien(name,p):
+    where = """ASK FROM """
+    where = where+ str(p) + """   { """
 
     where = where  +  """ 
         { ?person a dbo:MusicalArtist } UNION { ?person a umbel-rc:Artist } """
@@ -58,8 +59,9 @@ def ask_function_musicien(name):
 
     return  where
 
-def ask_function_auteur(name):
-    where = """ASK { """
+def ask_function_auteur(name,p):
+    where = """ASK FROM """
+    where = where+ str(p) + """   { """
 
     where = where  +  """ 
         { ?person a dbo:MusicalArtist } UNION { ?person a umbel-rc:Artist } """
@@ -70,8 +72,9 @@ def ask_function_auteur(name):
 
     return  where
     
-def ask_function_compositeur(name):
-    where = """ASK { """
+def ask_function_compositeur(name,p):
+    where = """ASK FROM """
+    where = where+ str(p) + """   { """
 
     where = where  +  """ 
         { ?person a dbo:MusicalArtist } UNION { ?person a umbel-rc:Artist } """
@@ -82,8 +85,9 @@ def ask_function_compositeur(name):
 
     return  where
     
-def ask_function_interprete(name):
-    where = """ASK { """
+def ask_function_interprete(name,p):
+    where = """ASK FROM """
+    where = where+ str(p) + """   { """
 
     where = where  +  """ 
         { ?person a dbo:MusicalArtist } UNION { ?person a umbel-rc:Artist } """
@@ -150,7 +154,7 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
             attribut = equivalence[key]
             valeur = value['value']
             d[str(attribut)] = str(valeur)
-            
+            """
             if key == 'name':
                 nom_artiste = valeur
                 ask_musicien = ask_function_musicien(nom_artiste)
@@ -208,7 +212,7 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
 
                 d["Fonction"] = f
             
-
+            """
         final_results.append(d)
 
     print("final_results ",final_results)
