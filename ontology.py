@@ -157,14 +157,14 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
                 print("ask_musicien ",ask_musicien)
                 sparql.setQuery(ask_musicien)
                 sparql.setReturnFormat(JSON)
-                is_musicien =  sparql.query().convert()['results']['bindings'] 
+                is_musicien =  sparql.query().convert()
                 print("is_musicien ",is_musicien)
 
                 ask_auteur = ask_function_auteur(nom_artiste)
                 print("ask_auteur ",ask_auteur)
                 sparql.setQuery(ask_auteur)
                 sparql.setReturnFormat(JSON)
-                is_auteur = sparql.query().convert()['results']['bindings'] 
+                is_auteur = sparql.query().convert()
                 print("is_auteur ",is_auteur)
 
 
@@ -172,14 +172,14 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
                 print("ask_compositeur", ask_compositeur)
                 sparql.setQuery(ask_compositeur)
                 sparql.setReturnFormat(JSON)
-                is_compositeur =  sparql.query().convert()['results']['bindings'] 
+                is_compositeur =  sparql.query().convert()
                 print("is_compositeur ",is_compositeur) 
                 
                 ask_interprete = ask_function_interprete(nom_artiste)
                 print("ask_interprete ",ask_interprete)
                 sparql.setQuery(ask_interprete)
                 sparql.setReturnFormat(JSON)
-                is_interprete = sparql.query().convert()['results']['bindings'] 
+                is_interprete = sparql.query().convert()
                 print("is_interprete ",is_interprete)
 
                 f=''
