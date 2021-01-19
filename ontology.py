@@ -33,7 +33,7 @@ def artiste_query(name,birthD,birthP, musicien, auteur, compositeur, interprete)
         where = where  + '?person dbo:birthDate ?birthD . '
 
     if birthP != None :
-        where = where  + '?person dbo:birthPlace ?birthP .'
+        where = where  + '?person  dbo:nationality ?birthP .'
         where = where  + 'FILTER (?birthPlace = <http://dbpedia.org/resource/'+str(birthP)+'>)'
     else: 
         select = select + " ?birthP "
