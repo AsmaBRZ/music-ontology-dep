@@ -45,54 +45,37 @@ def artiste_query(name,birthD,birthP):
     return select + " " + where
 
 
-def ask_function_musicien(name,p):
+def ask_function_musicien(p):
     where = """ASK FROM """
     where = where+ str(p) + """   { """
 
-    where = where  +  """ 
-        { ?person a dbo:MusicalArtist } UNION { ?person a umbel-rc:Artist } """
-
-
-    where = where  + '?person foaf:name "' + name + '"@en . '
     where = where  + '{?person a yago:Musician110339966} UNION {?person a yago:Musician110340312} '  
     where = where + " }"
 
     return  where
 
-def ask_function_auteur(name,p):
+def ask_function_auteur(p):
     where = """ASK FROM """
     where = where+ str(p) + """   { """
 
-    where = where  +  """ 
-        { ?person a dbo:MusicalArtist } UNION { ?person a umbel-rc:Artist } """
-
-    where = where  + '?person foaf:name "' + name + '"@en . '
     where = where  + '{?person a yago:Songwriter110624540} UNION {?person a yago:Writer110801291} UNION {?person a yago:Writer110794014} '
     where = where + " }"
 
     return  where
     
-def ask_function_compositeur(name,p):
+def ask_function_compositeur(p):
     where = """ASK FROM """
     where = where+ str(p) + """   { """
 
-    where = where  +  """ 
-        { ?person a dbo:MusicalArtist } UNION { ?person a umbel-rc:Artist } """
-
-    where = where  + '?person foaf:name "' + name + '"@en . '
     where = where  + '?person a yago:Composer109947232 . '
     where = where + " }"
 
     return  where
     
-def ask_function_interprete(name,p):
+def ask_function_interprete(p):
     where = """ASK FROM """
     where = where+ str(p) + """   { """
 
-    where = where  +  """ 
-        { ?person a dbo:MusicalArtist } UNION { ?person a umbel-rc:Artist } """
-
-    where = where  + '?person foaf:name "' + name + '"@en . '
     where = where  + '{?person a yago:Singer110599806} UNION {?person a yago:Performer110415638} '
     where = where + " }"
 
@@ -158,14 +141,14 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
             if key == 'name':
                 url = '<'+d['URL']+'>'
                 nom_artiste = valeur
-                ask_musicien = ask_function_musicien(nom_artiste,url)
+                ask_musicien = ask_function_musicien(url)
                 print("ask_musicien ",ask_musicien)
                 sparql.setQuery(ask_musicien)
                 sparql.setReturnFormat(JSON)
                 is_musicien =  sparql.query().convert()
                 print("is_musicien ",is_musicien)
 
-                ask_auteur = ask_function_auteur(nom_artiste,url)
+                ask_auteur = ask_function_auteur(url)
                 print("ask_auteur ",ask_auteur)
                 sparql.setQuery(ask_auteur)
                 sparql.setReturnFormat(JSON)
@@ -173,14 +156,14 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
                 print("is_auteur ",is_auteur)
 
 
-                ask_compositeur =  ask_function_compositeur(nom_artiste,url)
+                ask_compositeur =  ask_function_compositeur(url)
                 print("ask_compositeur", ask_compositeur)
                 sparql.setQuery(ask_compositeur)
                 sparql.setReturnFormat(JSON)
                 is_compositeur =  sparql.query().convert()
                 print("is_compositeur ",is_compositeur) 
                 
-                ask_interprete = ask_function_interprete(nom_artiste,url)
+                ask_interprete = ask_function_interprete(url)
                 print("ask_interprete ",ask_interprete)
                 sparql.setQuery(ask_interprete)
                 sparql.setReturnFormat(JSON)
