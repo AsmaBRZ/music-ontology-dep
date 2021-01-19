@@ -13,7 +13,7 @@ PREFIX dbpedia: <http://dbpedia.org/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"""
 
 equivalence =  {"birthP":"Place de naissance","interprete":"Interprète", "compositeur":"Compositeur", "auteur":"Auteur", "musicien":'Musicien', "birthD":"Date de naissance", "group":"URL","person":"URL", "name":"Nom", "dateC":"Date de création","origin":"Pays"}
-def artiste_query(name,birthD,birthP, musicien, auteur, compositeur, interprete):
+def artiste_query(name,birthD,birthP):
     select = """SELECT DISTINCT ?person """
 
     where =  """ WHERE {
@@ -38,23 +38,62 @@ def artiste_query(name,birthD,birthP, musicien, auteur, compositeur, interprete)
     else: 
         select = select + " ?birthP "
         where = where  + '?person dbo:birthPlace ?birthP . '
-
-    if musicien:
-        where = where  + '{?person a yago:Musician110339966} UNION {?person a yago:Musician110340312} '
-
-    if auteur:
-        where = where  + '{?person a yago:Songwriter110624540} UNION {?person a yago:Writer110801291} UNION {?person a yago:Writer110794014} '
-
-    if interprete:
-        where = where  + '{?person a yago:Singer110599806} UNION {?person a yago:Performer110415638} '
-
-    if compositeur:
-        where = where  + '?person a yago:Composer109947232 . '
-    
+   
 
     where = where + " } LIMIT 10"
 
     return select + " " + where
+
+
+def ask_function_musicien(name,musicien):
+    where = """ASK { """
+
+    where =  """ 
+        { ?person a dbo:MusicalArtist } UNION { ?person a umbel-rc:Artist } """
+
+
+    where = where  + '?person foaf:name "' + name + '"@en . '
+    where = where  + '{?person a yago:Musician110339966} UNION {?person a yago:Musician110340312} '  
+    where = where + " }"
+
+    return  where
+
+def ask_function_auteur(name, auteur):
+    where = """ASK { """
+
+    where =  """ 
+        { ?person a dbo:MusicalArtist } UNION { ?person a umbel-rc:Artist } """
+
+    where = where  + '?person foaf:name "' + name + '"@en . '
+    where = where  + '{?person a yago:Songwriter110624540} UNION {?person a yago:Writer110801291} UNION {?person a yago:Writer110794014} '
+    where = where + " }"
+
+    return  where
+    
+def ask_function_compositeur(name,compositeur):
+    where = """ASK { """
+
+    where =  """ 
+        { ?person a dbo:MusicalArtist } UNION { ?person a umbel-rc:Artist } """
+
+    where = where  + '?person foaf:name "' + name + '"@en . '
+    where = where  + '?person a yago:Composer109947232 . '
+    where = where + " }"
+
+    return  where
+    
+def ask_function_interprete(name, interprete):
+    where = """ASK { """
+
+    where =  """ 
+        { ?person a dbo:MusicalArtist } UNION { ?person a umbel-rc:Artist } """
+
+    where = where  + '?person foaf:name "' + name + '"@en . '
+    where = where  + '{?person a yago:Singer110599806} UNION {?person a yago:Performer110415638} '
+    where = where + " }"
+
+    return  where
+    
     
 def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v_interprete):
     if v_nom == '':
@@ -95,12 +134,11 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
     
 
     sparql = SPARQLWrapper("http://dbpedia.org/sparql")
-    
-    query=artiste_query(nom_artiste,date_artiste, lieu_artiste, musicien, auteur, compositeur, interprete)
+    query=artiste_query(nom_artiste)
     print("\n",query)
     sparql.setQuery(query)
     sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()['results']['bindings']
+    results = sparql.query().convert()['results']['bindings']  
 
     d = {}
     print("---------------------")
@@ -111,6 +149,33 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
             attribut = equivalence[key]
             valeur = value['value']
             d[str(attribut)] = str(valeur)
+
+
+    ask_musicien = ask_function_musicien(name,musicien)
+    ask_auteur = ask_function_auteur(name,auteur)
+    ask_compositeur =  ask_function_compositeur(name,compositeur)
+    ask_interprete = ask_function_interprete(name, interprete)
+
+
+    sparql.setQuery(ask_musicien)
+    sparql.setReturnFormat(JSON)
+    is_musicien =  sparql.query().convert()['results']['bindings'] 
+    print("is_musicien ",is_musicien)
+
+    sparql.setQuery(ask_auteur)
+    sparql.setReturnFormat(JSON)
+    is_auteur = sparql.query().convert()['results']['bindings'] 
+    print("is_auteur ",is_auteur)
+
+    sparql.setQuery(ask_compositeur)
+    sparql.setReturnFormat(JSON)
+    is_compositeur =  sparql.query().convert()['results']['bindings'] 
+    print("is_compositeur ",is_compositeur)    
+
+    sparql.setQuery(ask_interprete)
+    sparql.setReturnFormat(JSON)
+    is_interprete = sparql.query().convert()['results']['bindings'] 
+    print("is_interprete ",is_interprete)
 
     f=''
     if v_musicien == 'musicien':
