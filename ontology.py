@@ -201,7 +201,7 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
             valeur = value['value']
             d[str(attribut)] = str(valeur)
             
-            if key == 'name':
+            if True:
                 url = '<'+d['URL']+'>'
                 nom_artiste = valeur
                 ask_musicien = ask_function_musicien(url)
