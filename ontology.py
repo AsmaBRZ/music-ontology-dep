@@ -176,7 +176,7 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
                 print("is_compositeur ",is_compositeur) 
                 
                 ask_interprete = ask_function_interprete(nom_artiste)
-                print("ask_interprete ,"ask_interprete)
+                print("ask_interprete ",ask_interprete)
                 sparql.setQuery(ask_interprete)
                 sparql.setReturnFormat(JSON)
                 is_interprete = sparql.query().convert()['results']['bindings'] 
