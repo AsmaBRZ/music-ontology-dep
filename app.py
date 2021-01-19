@@ -32,9 +32,10 @@ def execRequest():
         interprete = request.form.get('interprete')
 
         if nom_artiste  == None and auteur == None and interprete == None and musicien ==  None and compositeur == None and date_naissance == None and lieu_naissance  == None:
-            return 'No date received'
-        #else:
-         #   result_dictionary = displayResult(nom_artiste,  date_naissance, lieu_naissance, musicien, auteur, compositeur, interprete)
+            print('nothing')
+        else:
+            print("YOUPIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+            result_dictionary = displayResult(nom_artiste,  date_naissance, lieu_naissance, musicien, auteur, compositeur, interprete)
     else:
       return render_template('index.html')
 
