@@ -46,39 +46,99 @@ def artiste_query(name,birthD,birthP):
 
 
 def ask_function_musicien(p):
-    where = """ASK  {"""
-    #where = where+ str(p)  + """   { """
+    where1 = 'ASK  { ' + str(p)+ '  a yago:Musician110339966}'
+    where2 =  'ASK  { ' +str(p)+'  a yago:Musician110340312}'
+    where3 =  'ASK  { ' +str(p)+' a dbo:Musician}'
+    where4 =  'ASK  { ' +str(p)+' a dbo:Instrumentalist}'
 
-    where = where  + '{'+str(p)+'  a yago:Musician110339966} UNION {'+str(p)+'  a yago:Musician110340312} UNION {'+str(p)+'  a dbo:Musician} UNION {'+str(p)+' a dbo:Instrumentalist} '  
-    where = where + " }"
+    sparql.setQuery(where1)
+    sparql.setReturnFormat(JSON)
+    is_musicien1 = bool(sparql.query().convert()['boolean'])
 
-    return  'ASK {<http://dbpedia.org/resource/Euphemia_Allen>  a yago:Musician110339966}'
+    sparql.setQuery(where2)
+    sparql.setReturnFormat(JSON)
+    is_musicien2 = bool(sparql.query().convert()['boolean'])
+
+    sparql.setQuery(where3)
+    sparql.setReturnFormat(JSON)
+    is_musicien3 = bool(sparql.query().convert()['boolean'])
+
+    sparql.setQuery(where4)
+    sparql.setReturnFormat(JSON)
+    is_musicien4 = bool(sparql.query().convert()['boolean'])
+
+
+    return  where1 or where2 or where3 or where4
 
 def ask_function_auteur(p):
-    where = """ASK  {"""
-    #where = where+ str(p)  + """   { """
+    where1 = 'ASK  { ' + str(p)+ '  a dbo:Songwriter}'
+    where2 =  'ASK  { ' +str(p)+'  a dbo:Writer}'
+    where3 =  'ASK  { ' +str(p)+' a dbo:Singer-Songwriter}'
+    where4 =  'ASK  { ' +str(p)+' a dbo:Instrumentalist}'
+    where5 =  'ASK  { ' +str(p)+' a yago:Songwriter110624540}'
+   
+    sparql.setQuery(where1)
+    sparql.setReturnFormat(JSON)
+    is_musicien1 = bool(sparql.query().convert()['boolean'])
 
-    where = where  + '{'+str(p)+'  a dbo:Songwriter} UNION  {'+str(p)+'  a dbo:Writer} UNION {'+str(p)+'  a dbo:Singer-Songwriter} UNION {'+str(p)+' a yago:Songwriter110624540} UNION {'+str(p)+' a yago:Writer110801291} UNION {'+str(p)+'  a yago:Writer110794014} '
-    where = where + " }"
+    sparql.setQuery(where2)
+    sparql.setReturnFormat(JSON)
+    is_musicien2 = bool(sparql.query().convert()['boolean'])
 
-    return  'ASK {<http://dbpedia.org/resource/Euphemia_Allen>  a yago:Musician110339966}'
-    
+    sparql.setQuery(where3)
+    sparql.setReturnFormat(JSON)
+    is_musicien3 = bool(sparql.query().convert()['boolean'])
+
+    sparql.setQuery(where4)
+    sparql.setReturnFormat(JSON)
+    is_musicien4 = bool(sparql.query().convert()['boolean'])
+
+    sparql.setQuery(where5)
+    sparql.setReturnFormat(JSON)
+    is_musicien5 = bool(sparql.query().convert()['boolean'])
+
+
+    return  where1 or where2 or where3 or where4 or where5
+
 def ask_function_compositeur(p):
-    where = """ASK  {"""
-    #where = where+ str(p)  + """   { """
+    where1 = 'ASK  { ' + str(p)+ '  a  yago:Composer109947232}'
+    where2 =  'ASK  { ' +str(p)+'  a dbo:composer}'
 
-    where = where  + '{'+str(p)+'  a yago:Composer109947232} UNION {'+str(p)+' a dbo:composer} . '
-    where = where + " }"
-    return  'ASK {<http://dbpedia.org/resource/Euphemia_Allen>  a yago:Musician110339966}'
+    sparql.setQuery(where1)
+    sparql.setReturnFormat(JSON)
+    is_musicien1 = bool(sparql.query().convert()['boolean'])
+
+    sparql.setQuery(where2)
+    sparql.setReturnFormat(JSON)
+    is_musicien2 = bool(sparql.query().convert()['boolean'])
+
+
+    return  where1 or where2 
+
     
 def ask_function_interprete(p):
-    where = """ASK  {"""
-    #where = where+ str(p)  + """   { """
-    
-    where = where  + '{'+str(p)+' a dbo:Singer} UNION {'+str(p)+' a dbo:Singer-Songwriter} UNION  {'+str(p)+' a yago:Singer110599806} UNION {'+str(p)+' a yago:Performer110415638} '
-    where = where + " }"
+    where1 = 'ASK  { ' + str(p)+ '  a dbo:Singer}'
+    where2 =  'ASK  { ' +str(p)+'  a dbo:Singer-Songwriter}'
+    where3 =  'ASK  { ' +str(p)+' a yago:Singer110599806}'
+    where4 =  'ASK  { ' +str(p)+' a yago:Performer110415638}'
+   
+    sparql.setQuery(where1)
+    sparql.setReturnFormat(JSON)
+    is_musicien1 = bool(sparql.query().convert()['boolean'])
 
-    return  'ASK {<http://dbpedia.org/resource/Euphemia_Allen>  a yago:Musician110339966}'
+    sparql.setQuery(where2)
+    sparql.setReturnFormat(JSON)
+    is_musicien2 = bool(sparql.query().convert()['boolean'])
+
+    sparql.setQuery(where3)
+    sparql.setReturnFormat(JSON)
+    is_musicien3 = bool(sparql.query().convert()['boolean'])
+
+    sparql.setQuery(where4)
+    sparql.setReturnFormat(JSON)
+    is_musicien4 = bool(sparql.query().convert()['boolean'])
+
+    return  where1 or where2 or where3 or where4 
     
     
 def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v_interprete):
