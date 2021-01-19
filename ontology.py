@@ -52,7 +52,7 @@ def ask_function_musicien(p):
     where = where  + '{'+str(p)+'  a yago:Musician110339966} UNION {'+str(p)+'  a yago:Musician110340312} UNION {'+str(p)+'  a dbo:Musician} UNION {'+str(p)+' a dbo:Instrumentalist} '  
     where = where + " }"
 
-    return  where
+    return  'ASK {<http://dbpedia.org/resource/Euphemia_Allen>  a yago:Musician110339966}'
 
 def ask_function_auteur(p):
     where = """ASK  {"""
@@ -61,7 +61,7 @@ def ask_function_auteur(p):
     where = where  + '{'+str(p)+'  a dbo:Songwriter} UNION  {'+str(p)+'  a dbo:Writer} UNION {'+str(p)+'  a dbo:Singer-Songwriter} UNION {'+str(p)+' a yago:Songwriter110624540} UNION {'+str(p)+' a yago:Writer110801291} UNION {'+str(p)+'  a yago:Writer110794014} '
     where = where + " }"
 
-    return  where 
+    return  'ASK {<http://dbpedia.org/resource/Euphemia_Allen>  a yago:Musician110339966}'
     
 def ask_function_compositeur(p):
     where = """ASK  {"""
@@ -69,7 +69,7 @@ def ask_function_compositeur(p):
 
     where = where  + '{'+str(p)+'  a yago:Composer109947232} UNION {'+str(p)+' a dbo:composer} . '
     where = where + " }"
-    return  where
+    return  'ASK {<http://dbpedia.org/resource/Euphemia_Allen>  a yago:Musician110339966}'
     
 def ask_function_interprete(p):
     where = """ASK  {"""
@@ -78,7 +78,7 @@ def ask_function_interprete(p):
     where = where  + '{'+str(p)+' a dbo:Singer} UNION {'+str(p)+' a dbo:Singer-Songwriter} UNION  {'+str(p)+' a yago:Singer110599806} UNION {'+str(p)+' a yago:Performer110415638} '
     where = where + " }"
 
-    return  where
+    return  'ASK {<http://dbpedia.org/resource/Euphemia_Allen>  a yago:Musician110339966}'
     
     
 def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v_interprete):
