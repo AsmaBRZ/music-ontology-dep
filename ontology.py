@@ -154,17 +154,18 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
             attribut = equivalence[key]
             valeur = value['value']
             d[str(attribut)] = str(valeur)
-            """
+            
             if key == 'name':
+                url = '<'+d['URL']+'>'
                 nom_artiste = valeur
-                ask_musicien = ask_function_musicien(nom_artiste)
+                ask_musicien = ask_function_musicien(nom_artiste,url)
                 print("ask_musicien ",ask_musicien)
                 sparql.setQuery(ask_musicien)
                 sparql.setReturnFormat(JSON)
                 is_musicien =  sparql.query().convert()
                 print("is_musicien ",is_musicien)
 
-                ask_auteur = ask_function_auteur(nom_artiste)
+                ask_auteur = ask_function_auteur(nom_artiste,url)
                 print("ask_auteur ",ask_auteur)
                 sparql.setQuery(ask_auteur)
                 sparql.setReturnFormat(JSON)
@@ -172,14 +173,14 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
                 print("is_auteur ",is_auteur)
 
 
-                ask_compositeur =  ask_function_compositeur(nom_artiste)
+                ask_compositeur =  ask_function_compositeur(nom_artiste,url)
                 print("ask_compositeur", ask_compositeur)
                 sparql.setQuery(ask_compositeur)
                 sparql.setReturnFormat(JSON)
                 is_compositeur =  sparql.query().convert()
                 print("is_compositeur ",is_compositeur) 
                 
-                ask_interprete = ask_function_interprete(nom_artiste)
+                ask_interprete = ask_function_interprete(nom_artiste,url)
                 print("ask_interprete ",ask_interprete)
                 sparql.setQuery(ask_interprete)
                 sparql.setReturnFormat(JSON)
@@ -212,7 +213,7 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
 
                 d["Fonction"] = f
             
-            """
+            
         final_results.append(d)
 
     print("final_results ",final_results)
