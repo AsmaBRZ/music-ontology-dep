@@ -37,7 +37,7 @@ def artiste_query(name,birthD,birthP, musicien, auteur, compositeur, interprete)
         where = where  + 'FILTER (?birthPlace = <http://dbpedia.org/resource/'+str(birthP)+'>) '
     else: 
         select = select + " ?birthP "
-        where = where  + '?person dbo:birthPlace ?birthP . '
+        where = where  + '?person dbo:birthP ?birthP . '
 
     if musicien:
         where = where  + '{?person a yago:Musician110339966} UNION {?person a yago:Musician110340312} '
