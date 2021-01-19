@@ -151,10 +151,10 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
             d[str(attribut)] = str(valeur)
 
 
-    ask_musicien = ask_function_musicien(name,musicien)
-    ask_auteur = ask_function_auteur(name,auteur)
-    ask_compositeur =  ask_function_compositeur(name,compositeur)
-    ask_interprete = ask_function_interprete(name, interprete)
+    ask_musicien = ask_function_musicien(nom_artiste,musicien)
+    ask_auteur = ask_function_auteur(nom_artiste,auteur)
+    ask_compositeur =  ask_function_compositeur(nom_artiste,compositeur)
+    ask_interprete = ask_function_interprete(nom_artiste, interprete)
 
 
     sparql.setQuery(ask_musicien)
