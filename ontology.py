@@ -75,15 +75,23 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
 
     if v_musicien == 'musicien':
         musicien = True
+    else:
+        musicien = False
 
     if v_auteur == 'auteur':
         auteur = True
+    else:
+        auteur = False
 
     if v_compositeur == 'compositeur':
         compositeur = True
+    else:
+        compositeur = False
 
     if v_interprete == 'interprete':
         interprete = True
+    else:
+        interprete = False
     
 
     sparql = SPARQLWrapper("http://dbpedia.org/sparql")
