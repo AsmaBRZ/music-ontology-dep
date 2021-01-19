@@ -49,7 +49,7 @@ def ask_function_musicien(p):
     where = """ASK FROM """
     where = where+ str(p) + """   { """
 
-    where = where  + '{?person a yago:Musician110339966} UNION {?person a yago:Musician110340312} '  
+    where = where  + '{?person a yago:Musician110339966} UNION {?person a yago:Musician110340312} UNION {?person a dbo:Musician} UNION {?person a dbo:Instrumentalist} '  
     where = where + " }"
 
     return  where
@@ -58,25 +58,24 @@ def ask_function_auteur(p):
     where = """ASK FROM """
     where = where+ str(p) + """   { """
 
-    where = where  + '{?person a yago:Songwriter110624540} UNION {?person a yago:Writer110801291} UNION {?person a yago:Writer110794014} '
+    where = where  + '{?person a dbo:Songwriter} UNION  {?person a dbo:Writer} UNION {?person a dbo:Singer-Songwriter} UNION {?person a yago:Songwriter110624540} UNION {?person a yago:Writer110801291} UNION {?person a yago:Writer110794014} '
     where = where + " }"
 
-    return  where
+    return  where 
     
 def ask_function_compositeur(p):
     where = """ASK FROM """
     where = where+ str(p) + """   { """
 
-    where = where  + '?person a yago:Composer109947232 . '
+    where = where  + '{?person a yago:Composer109947232} UNION {?person a dbo:composer} . '
     where = where + " }"
-
     return  where
     
 def ask_function_interprete(p):
     where = """ASK FROM """
     where = where+ str(p) + """   { """
 
-    where = where  + '{?person a yago:Singer110599806} UNION {?person a yago:Performer110415638} '
+    where = where  + '{?person a dbo:Singer} UNION {?person a dbo:Singer-Songwriter} UNION  {?person a yago:Singer110599806} UNION {?person a yago:Performer110415638} '
     where = where + " }"
 
     return  where
@@ -170,26 +169,26 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
                 is_interprete =bool( sparql.query().convert()['boolean'])
                 print("is_interprete ",is_interprete)
 
-                f=''
+                f='artiste, '
                 if is_musicien == 'musicien':
                     f=f+'musicien'
 
                 
                 if is_auteur == 'auteur':
-                    if f=='':
+                    if f=='artiste, ':
                         f=f+"auteur"
                     else:
                         f=f+", auteur"
             
                 if is_compositeur == 'compositeur':
-                    if f=='':
+                    if f=='artiste, ':
                         f=f+"compositeur"
                     else:
                         f=f+", compositeur"
 
 
                 if is_interprete == 'interprete':
-                    if f=='':
+                    if f=='artiste, ':
                         f=f+"interprète"
                     else:
                         f=f+", interprète"
