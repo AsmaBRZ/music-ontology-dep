@@ -154,12 +154,14 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
             if key == 'name':
                 nom_artiste = valeur
                 ask_musicien = ask_function_musicien(nom_artiste)
+                print("ask_musicien ",ask_musicien)
                 sparql.setQuery(ask_musicien)
                 sparql.setReturnFormat(JSON)
                 is_musicien =  sparql.query().convert()['results']['bindings'] 
                 print("is_musicien ",is_musicien)
 
                 ask_auteur = ask_function_auteur(nom_artiste)
+                print("ask_auteur ",ask_auteur)
                 sparql.setQuery(ask_auteur)
                 sparql.setReturnFormat(JSON)
                 is_auteur = sparql.query().convert()['results']['bindings'] 
@@ -167,12 +169,14 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
 
 
                 ask_compositeur =  ask_function_compositeur(nom_artiste)
+                print("ask_compositeur", ask_compositeur)
                 sparql.setQuery(ask_compositeur)
                 sparql.setReturnFormat(JSON)
                 is_compositeur =  sparql.query().convert()['results']['bindings'] 
                 print("is_compositeur ",is_compositeur) 
                 
                 ask_interprete = ask_function_interprete(nom_artiste)
+                print("ask_interprete ,"ask_interprete)
                 sparql.setQuery(ask_interprete)
                 sparql.setReturnFormat(JSON)
                 is_interprete = sparql.query().convert()['results']['bindings'] 
