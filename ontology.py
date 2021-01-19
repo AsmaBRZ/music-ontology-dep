@@ -45,7 +45,7 @@ def artiste_query(name,birthD,birthP):
     return select + " " + where
 
 
-def ask_function_musicien(name,musicien):
+def ask_function_musicien(name):
     where = """ASK { """
 
     where =  """ 
@@ -58,7 +58,7 @@ def ask_function_musicien(name,musicien):
 
     return  where
 
-def ask_function_auteur(name, auteur):
+def ask_function_auteur(name):
     where = """ASK { """
 
     where =  """ 
@@ -70,7 +70,7 @@ def ask_function_auteur(name, auteur):
 
     return  where
     
-def ask_function_compositeur(name,compositeur):
+def ask_function_compositeur(name):
     where = """ASK { """
 
     where =  """ 
@@ -82,7 +82,7 @@ def ask_function_compositeur(name,compositeur):
 
     return  where
     
-def ask_function_interprete(name, interprete):
+def ask_function_interprete(name):
     where = """ASK { """
 
     where =  """ 
@@ -140,68 +140,72 @@ def displayResult(v_nom, v_date, v_place, v_musicien, v_auteur, v_compositeur, v
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()['results']['bindings']  
 
-    d = {}
+    
     print("---------------------")
     
-    
+    final_results = []
     for result in results :
+        d = {}
         for key,value in result.items():
             attribut = equivalence[key]
             valeur = value['value']
             d[str(attribut)] = str(valeur)
+            
+            if key == 'name':
+                nom_artiste = valeur
+                ask_musicien = ask_function_musicien(nom_artiste)
+                sparql.setQuery(ask_musicien)
+                sparql.setReturnFormat(JSON)
+                is_musicien =  sparql.query().convert()['results']['bindings'] 
+                print("is_musicien ",is_musicien)
+
+                ask_auteur = ask_function_auteur(nom_artiste)
+                sparql.setQuery(ask_auteur)
+                sparql.setReturnFormat(JSON)
+                is_auteur = sparql.query().convert()['results']['bindings'] 
+                print("is_auteur ",is_auteur)
 
 
-    ask_musicien = ask_function_musicien(nom_artiste,musicien)
-    ask_auteur = ask_function_auteur(nom_artiste,auteur)
-    ask_compositeur =  ask_function_compositeur(nom_artiste,compositeur)
-    ask_interprete = ask_function_interprete(nom_artiste, interprete)
+                ask_compositeur =  ask_function_compositeur(nom_artiste)
+                sparql.setQuery(ask_compositeur)
+                sparql.setReturnFormat(JSON)
+                is_compositeur =  sparql.query().convert()['results']['bindings'] 
+                print("is_compositeur ",is_compositeur) 
+                
+                ask_interprete = ask_function_interprete(nom_artiste)
+                sparql.setQuery(ask_interprete)
+                sparql.setReturnFormat(JSON)
+                is_interprete = sparql.query().convert()['results']['bindings'] 
+                print("is_interprete ",is_interprete)
+
+                f=''
+                if is_musicien == 'musicien':
+                    f=f+'musicien'
+
+                
+                if is_auteur == 'auteur':
+                    if f=='':
+                        f=f+"auteur"
+                    else:
+                        f=f+", auteur"
+            
+                if is_compositeur == 'compositeur':
+                    if f=='':
+                        f=f+"compositeur"
+                    else:
+                        f=f+", compositeur"
 
 
-    sparql.setQuery(ask_musicien)
-    sparql.setReturnFormat(JSON)
-    is_musicien =  sparql.query().convert()['results']['bindings'] 
-    print("is_musicien ",is_musicien)
+                if is_interprete == 'interprete':
+                    if f=='':
+                        f=f+"interprète"
+                    else:
+                        f=f+", interprète"
 
-    sparql.setQuery(ask_auteur)
-    sparql.setReturnFormat(JSON)
-    is_auteur = sparql.query().convert()['results']['bindings'] 
-    print("is_auteur ",is_auteur)
+                d["Fonction"] = f
+            
 
-    sparql.setQuery(ask_compositeur)
-    sparql.setReturnFormat(JSON)
-    is_compositeur =  sparql.query().convert()['results']['bindings'] 
-    print("is_compositeur ",is_compositeur)    
+        final_results.append(d)
 
-    sparql.setQuery(ask_interprete)
-    sparql.setReturnFormat(JSON)
-    is_interprete = sparql.query().convert()['results']['bindings'] 
-    print("is_interprete ",is_interprete)
-
-    f=''
-    if v_musicien == 'musicien':
-        f=f+'musicien'
-
-    
-    if v_auteur == 'auteur':
-        if f=='':
-            f=f+"auteur"
-        else:
-            f=f+", auteur"
-  
-    if v_compositeur == 'compositeur':
-        if f=='':
-            f=f+"compositeur"
-        else:
-            f=f+", compositeur"
-
-
-    if v_interprete == 'interprete':
-        if f=='':
-            f=f+"interprète"
-        else:
-            f=f+", interprète"
-
-    d["Fonction"] = f
-
-    print(d)
-    return d
+    print("final_results ",final_results)
+    return final_results
