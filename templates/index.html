@@ -118,7 +118,7 @@
     // });
 
     function executeRequest() {
-            var form = new FormData($("#uploadForm"));
+            var form = =$("#uploadForm").serialize();
             var url = "{{ url_for('execRequest')}}";
             $.ajax({
                 url: url,
