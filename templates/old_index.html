@@ -15,16 +15,36 @@
 </head>
 
 <body>
-    
+
     <hr>
     <div class="container form-container">
-            <header class="text-center my-5">
-                    <h1>Moteur de recherche de musique</h1>
-                </header>
+        <header class="text-center my-5">
+            <h1>Moteur de recherche de musique</h1>
+        </header>
         <div class="row">
-            <div class="offset-md-2 col-md-8">
+            <div class="offset-md-2 col-md-8" style="min-height: 350px;">
                 <div id="result" hidden>
 
+                </div>
+                <div class=" row col-md-12" style="height: 60px;" id="back_div" hidden>
+                    <button type="button" class="submit-button" id="back">Retour</button>
+                </div>
+                <div class="criterion" hidden>
+                    <div class="text">M</div>
+                    <div class="text">U</div>
+                    <div class="text">S</div>
+                    <div class="text">I</div>
+                    <div class="text">C</div>
+                    <div class="text"> </div>
+                    <div class="text">O</div>
+                    <div class="text">N</div>
+                    <div class="text">T</div>
+                    <div class="text">O</div>
+                    <div class="text">L</div>
+                    <div class="text">O</div>
+                    <div class="text">G</div>
+                    <div class="text">Y</div>
+                    <div class="text"> </div>
                 </div>
                 <form enctype="multipart/form-data" action="{{ url_for('execRequest')}}" method="post" id="uploadForm">
 
@@ -68,9 +88,9 @@
                         <span class="checkmark"></span>
                     </label>
                     <div class=" row col-md-12" style="height: 60px;">
-                            <button type="button" onclick="executeRequest()" class="submit-button"> Valider</button>
+                        <button type="button" onclick="executeRequest()" class="submit-button"> Valider</button>
                     </div>
-                    
+
                 </form>
             </div>
         </div>
@@ -121,51 +141,66 @@
     // });
 
     function executeRequest() {
-            var form =  new FormData(document.querySelector('form'));
-            //$("#uploadForm").serializeArray();
-            console.log(form);
-            // var data={};
-            // form.forEach(element => {
-            //     data[element.name]=element.value;
-            // });
-            // console.log(data);
-            var url = "{{ url_for('execRequest')}}";
-            $.ajax({
-                url: url,
-                method: "POST",
-                dataType: 'json',
-                data: form,
-                processData: false,
-                contentType: false,
-                success: function (result) {
-                    console.log(result);
-                    $('#uploadForm').attr('hidden',true);
-                    result.results.forEach(element => {
-                        //$('#result').append('</br><h2>'++'</h2>');
-                        var e=element,key;
-                        for (key in e) {
-                            if (e.hasOwnProperty(key)) {
-                                console.log(key + " = " + e[key]);
-                                $('#result').append('<span>'+key+': '+e[key]+'</span></br>');
-                            }
-                        }  
-                        $('#result').append('<hr></br>');
-                        //$('#result').append('<span>Fonction: '+element['Fonction']+'</span>');
-                    });
-                   
-                    $('#result').attr('hidden',false);
-                    // document.getElementById("barChart").innerHTML = ""
-                    // var r = jQuery.parseJSON(result.results);
-                    // newChart(r.proba, r.class);
-                    // $("#class").html(r.class);
-                },
-                error: function (er) {
-                    console.log('error: ' + er);
-                }
-            });
+        var form = new FormData(document.querySelector('form'));
+        //$("#uploadForm").serializeArray();
+        console.log(form);
+        // var data={};
+        // form.forEach(element => {
+        //     data[element.name]=element.value;
+        // });
+        // console.log(data);
+        $('#uploadForm').attr('hidden', true);
+        $('.criterion').attr('hidden', false);
+        var url = "{{ url_for('execRequest')}}";
+        $.ajax({
+            url: url,
+            method: "POST",
+            dataType: 'json',
+            data: form,
+            processData: false,
+            contentType: false,
+            success: function(result) {
+                console.log(result);
+                $('.criterion').attr('hidden', true);
+
+                result.results.forEach(element => {
+                    //$('#result').append('</br><h2>'++'</h2>');
+                    var e = element,
+                        key;
+                    for (key in e) {
+                        if (e.hasOwnProperty(key)) {
+                            console.log(key + " = " + e[key]);
+                            $('#result').append('<span>' + key + ': ' + e[key] + '</span></br>');
+                        }
+                    }
+                    $('#result').append('<hr></br>');
+                    //$('#result').append('<span>Fonction: '+element['Fonction']+'</span>');
+                });
+
+                $('#result').attr('hidden', false);
+                $('#back_div').attr('hidden', false);
+                // document.getElementById("barChart").innerHTML = ""
+                // var r = jQuery.parseJSON(result.results);
+                // newChart(r.proba, r.class);
+                // $("#class").html(r.class);
+            },
+            error: function(er) {
+                console.log('error: ' + er);
+                $('.criterion').attr('hidden', true);
+
+                $('#result').append('</br><span>' + er + '</span>');
+                $('#result').attr('hidden', false);
+                $('#back_div').attr('hidden', false);
+
+            }
+        });
     }
-    $("#imageUpload").change(function () {
-        readURL(this);
+    $("#back_div").click(function() {
+
+        $('#back_div').attr('hidden', true);
+        $('#result').attr('hidden', true);
+        $('#uploadForm').attr('hidden', false);
+        $('#result').html('');
     });
 
     // function readURL(input) {

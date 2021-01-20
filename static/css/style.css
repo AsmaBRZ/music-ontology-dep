@@ -187,16 +187,36 @@
         margin-bottom: 60px;
     }
     
+    .back-button {
+        position: relative;
+        right: 0;
+        left: auto;
+        margin-left: auto;
+        /*margin: 10px -15px 0px 0;*/
+        padding: 0 10px;
+        border: #222 solid 3px;
+        background-color: transparent;
+        color: #222;
+        border-radius: 0;
+    }
+    
     .submit-button {
         position: absolute;
         right: 0;
         left: auto;
+        /* margin-left: auto; */
         margin: 10px -15px 0px 0;
         padding: 0 10px;
         border: #222 solid 3px;
         background-color: transparent;
         color: #222;
         border-radius: 0;
+    }
+    
+    .div-right {
+        position: absolute;
+        left: auto;
+        right: -15px;
     }
     /*---------loading style -----------*/
     /**

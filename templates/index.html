@@ -27,7 +27,11 @@
 
                 </div>
                 <div class=" row col-md-12" style="height: 60px;" id="back_div" hidden>
-                    <button type="button" class="submit-button" id="back">Retour</button>
+                    <div class="div-right">
+                        <button type="button" class="back-button" id="back">Retour</button>
+                        <button type="button" class="back-button" id="print">Exporter</button>
+                    </div>
+
                 </div>
                 <div class="criterion" hidden>
                     <div class="text">M</div>
@@ -195,12 +199,36 @@
             }
         });
     }
+
+    function PrintElem(elem) {
+        var mywindow = window.open('', 'PRINT', 'height=' + screen.height + ',width=' + screen.width);
+
+        mywindow.document.write('<html><head><title>' + document.title + '</title>');
+        mywindow.document.write('</head><body >');
+        mywindow.document.write('<h1>' + document.title + '</h1>');
+        mywindow.document.write(document.getElementById(elem).innerHTML);
+        mywindow.document.write('</body></html>');
+
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10*/
+
+        mywindow.print();
+        mywindow.close();
+
+        return true;
+    }
+
     $("#back_div").click(function() {
 
         $('#back_div').attr('hidden', true);
         $('#result').attr('hidden', true);
         $('#uploadForm').attr('hidden', false);
         $('#result').html('');
+    });
+
+    $("#print").click(function() {
+
+        PrintElem('result');
     });
 
     // function readURL(input) {
