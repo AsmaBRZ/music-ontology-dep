@@ -89,6 +89,13 @@
         border-radius: 0;
     }
 
+    #result{
+        font-family: 'BodoniFLF Regular';
+        font-style: italic;
+        font-weight: bold;
+        font-size:24px;
+    }
+
     .input:focus{
         border: #222 solid 3px;
         background-color: transparent;

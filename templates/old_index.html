@@ -23,6 +23,9 @@
                 </header>
         <div class="row">
             <div class="offset-md-2 col-md-8">
+                <div id="result" hidden>
+
+                </div>
                 <form enctype="multipart/form-data" action="{{ url_for('execRequest')}}" method="post" id="uploadForm">
 
                     <div class="form-group row">
@@ -65,7 +68,7 @@
                         <span class="checkmark"></span>
                     </label>
                     <div class=" row col-md-12" style="height: 60px;">
-                            <button type="button" onclick='executeRequest()' class="submit-button"> Valider</button>
+                            <button type="button" onclick="executeRequest()" class="submit-button"> Valider</button>
                     </div>
                     
                 </form>
@@ -118,8 +121,14 @@
     // });
 
     function executeRequest() {
-            var form = $("#uploadForm").serialize();
-            console.log(form)
+            var form =  new FormData(document.querySelector('form'));
+            //$("#uploadForm").serializeArray();
+            console.log(form);
+            // var data={};
+            // form.forEach(element => {
+            //     data[element.name]=element.value;
+            // });
+            // console.log(data);
             var url = "{{ url_for('execRequest')}}";
             $.ajax({
                 url: url,
@@ -129,7 +138,22 @@
                 processData: false,
                 contentType: false,
                 success: function (result) {
-                    console.log(result)
+                    console.log(result);
+                    $('#uploadForm').attr('hidden',true);
+                    result.results.forEach(element => {
+                        //$('#result').append('</br><h2>'++'</h2>');
+                        var e=element,key;
+                        for (key in e) {
+                            if (e.hasOwnProperty(key)) {
+                                console.log(key + " = " + e[key]);
+                                $('#result').append('<span>'+key+': '+e[key]+'</span></br>');
+                            }
+                        }  
+                        $('#result').append('<hr></br>');
+                        //$('#result').append('<span>Fonction: '+element['Fonction']+'</span>');
+                    });
+                   
+                    $('#result').attr('hidden',false);
                     // document.getElementById("barChart").innerHTML = ""
                     // var r = jQuery.parseJSON(result.results);
                     // newChart(r.proba, r.class);
@@ -139,13 +163,12 @@
                     console.log('error: ' + er);
                 }
             });
-        
     }
     $("#imageUpload").change(function () {
-        executeRequest(this);
+        readURL(this);
     });
 
-    // function executeRequest(input) {
+    // function readURL(input) {
     //     if (input.files && input.files[0]) {
     //         var reader = new FileReader();
     //         reader.onload = function(e) {
@@ -157,7 +180,7 @@
     // }
 
     // $("#image_data").change(function() {
-    //     executeRequest(this);
+    //     readURL(this);
     // });
 </script>
 <!-- <script>
